@@ -14,12 +14,13 @@ Graph::Graph(int n){
 
     for (int i = 0; i <= n; i++){
         vertices[i].setIndex(i);
-        vertices[i].sestDegree(0);
+        vertices[i].setDegree(0);
 
     }
 
     adjMatrix = new int*[n + 1];
     for (int i = 0; i <= n; i++){
+        adjMatrix[i] = new int[n + 1];
         for (int j = 0; j <= n; j++){
             adjMatrix[i][j] = 0;
         }
@@ -66,7 +67,7 @@ void Graph::runDijkstra(int source, int *distances){
         int u =-1;
         int bestDist = INF;
 
-        for (int i = 1; 1 <= numVertices; i++){
+        for (int i = 1; i <= numVertices; i++){
             if (visited[i] == 0 && distances[i] < bestDist){
                 bestDist = distances[i];
                 u = i;
@@ -116,12 +117,12 @@ void Graph::solveNPrintAll(){
     }
 
     cout << "The nodes with odd degrees in G are:" << endl;
-    cout << "0 = { ";
+    cout << "O = { ";
     for (int i = 0; i < oddCount; i++){
         if (i > 0){
             cout << " ";
         }
-        cout << oddNodes[i]
+        cout << oddNodes[i];
     }
     cout << " }" << endl;
     cout << endl;
@@ -133,7 +134,8 @@ void Graph::solveNPrintAll(){
 
         runDijkstra(source, distances);
 
-        cout << "The shourtest path lengths from Node " << source << " to all other nodes are:" << endl;
+        cout << "The shortest path lengths from Node " << source 
+        << " to all other nodes are:" << endl;
         cout << endl;
 
         for (int v = 1; v <= numVertices; v++){
